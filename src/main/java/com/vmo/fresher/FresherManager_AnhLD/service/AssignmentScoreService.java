@@ -6,7 +6,7 @@ import model.response.AssignmentScoreResponse;
 import java.util.List;
 
 public interface AssignmentScoreService {
-    ResponseObject averageScore(Long id);
+    ResponseObject findAverageScoreByFresherId(Long id);
 
     List<AssignmentScoreResponse.ScoreResponse> findAllAssignmentByFresherId(Long id);
 

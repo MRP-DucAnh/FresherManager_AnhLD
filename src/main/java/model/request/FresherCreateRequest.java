@@ -1,5 +1,6 @@
 package model.request;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+//@Builder
 public class FresherCreateRequest {
 
     @NotBlank(message = "Name cannot be Empty!")

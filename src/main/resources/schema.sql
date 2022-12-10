@@ -28,6 +28,14 @@ insert into  fresher(id, deleted, created_on, last_modified, name, dob, address,
     (4,0,'2022-02-21','2022-01-11','Lear','2001-05-07','MK Kingdom','0432456732','Learlear@gmail.com');
 insert into  fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUE
     (5,0,'2022-04-21','2022-04-11','Trearast','2001-05-07','MK Kingdom','0943293532','Trearast@gmail.com');
+insert into  fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUE
+    (6,0,'2022-04-21','2022-04-11','Robot','2001-05-07','MK Kingdom','0943293532','Trearast@gmail.com');
+insert into  fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUE
+    (7,0,'2022-04-21','2022-04-11','Messi','2001-05-07','Argentina','0943293532','Messi@gmail.com');
+insert into  fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUE
+    (8,0,'2022-04-21','2022-04-11','Ronaldo','2001-05-07','MK Kingdom, Portugal','0943293532','Ronaldo@gmail.com');
+insert into  fresher(id, deleted, created_on, last_modified, name, dob, address, phone, email) VALUE
+    (9,0,'2022-04-21','2022-04-11','Neymar','2001-05-07','MK Kingdom Brazil','0943293532','Neymar@gmail.com');
 
 -- CENTER
 DROP TABLE IF EXISTS center;
@@ -203,6 +211,27 @@ insert into assignment_score( created_on, last_modified, fresher_id, assignment_
     VALUE ('2022-11-21','2022-05-11',5,2,1);
 insert into assignment_score( created_on, last_modified, fresher_id, assignment_id, score)
     VALUE ('2022-11-21','2022-05-11',5,3,1);
+
+INSERT INTO center(id, deleted, created_on, last_modified, name, code, dob, address) VALUES
+(1,0,NOW(),NULL,'Center 5','C5','2021-10-05','Floor 10');
+INSERT INTO center(id, deleted, created_on, last_modified, name, code, dob, address) VALUES
+(2,0,NOW(),NULL,'Center 18','C18','2021-05-18','Floor 5');
+INSERT INTO center(id, deleted, created_on, last_modified, name, code, dob, address) VALUES
+(3,0,NOW(),NULL,'Center 10','C10','2021-10-10','Floor 8');
+
+
+INSERT INTO center_fresher(id, deleted, created_on, last_modified, center_id, fresher_id, start_date, end_date) VALUES
+(1,0,NOW(),NULL,1,1,'2022-09-15',NULL);
+INSERT INTO center_fresher(id, deleted, created_on, last_modified, center_id, fresher_id, start_date, end_date) VALUES
+(2,0,NOW(),NULL,2,2,'2022-10-15',NULL);
+INSERT INTO center_fresher(id, deleted, created_on, last_modified, center_id, fresher_id, start_date, end_date) VALUES
+(3,0,NOW(),NULL,1,3,'2022-08-15',NULL),
+(4,0,NOW(),NULL,1,4,'2022-08-15',NULL),
+(5,0,NOW(),NULL,1,5,'2022-08-15',NULL),
+(6,0,NOW(),NULL,2,6,'2022-08-15',NULL),
+(7,0,NOW(),NULL,2,7,'2022-08-15',NULL),
+(8,0,NOW(),NULL,3,8,'2022-08-15',NULL),
+(9,0,NOW(),NULL,3,9,'2022-08-15',NULL)   ;
 
 # DROP TABLE IF EXISTS assignment;
 # CREATE TABLE assignment

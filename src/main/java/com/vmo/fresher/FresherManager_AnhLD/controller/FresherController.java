@@ -10,13 +10,12 @@ import lombok.RequiredArgsConstructor;
 import model.request.FresherCreateRequest;
 import model.response.AssignmentScoreResponse;
 import model.response.FresherLanguageResponse;
+import model.response.FresherResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -30,14 +29,13 @@ public class FresherController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Fresher> createFresher(@RequestBody @Valid FresherCreateRequest fresherCreateRequest) {
-        Fresher savedFresher = fresherService.createFresher(fresherCreateRequest);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedFresher.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.ok(fresherService.createFresher(fresherCreateRequest));
     }
+    @GetMapping("/{fresherId}")
+    public ResponseEntity<FresherResponse> findById(@PathVariable Long fresherId){
+        return ResponseEntity.ok(fresherService.findById(fresherId));
+    }
+
     @GetMapping("/countAll") //localhost:8080/fm/api/v1/freshers/all
     public ResponseEntity<Integer> countAllFreshers(){
         return ResponseEntity.ok(fresherService.countAllFresher());
@@ -59,7 +57,7 @@ public class FresherController {
 
 
     @PutMapping("/{id}")
-    public  ResponseEntity<ResponseObject> UpdateFresher (@RequestBody Fresher newFresher,@PathVariable Long id){
+    public  ResponseEntity<ResponseObject/*FresherResponse*/> UpdateFresher (@RequestBody Fresher newFresher,@PathVariable Long id){
         return  ResponseEntity.status(HttpStatus.OK).body(fresherService.UpdateFresher(newFresher,id));
     }
 
@@ -74,12 +72,12 @@ public class FresherController {
     }
 
     @GetMapping("/{id}/freshersavgmark")
-    public  ResponseEntity<ResponseObject> findFresherAverageMark (@PathVariable Long id){
-        return  ResponseEntity.status(HttpStatus.OK).body(assignmentScoreService.averageScore(id));
+    public  ResponseEntity<ResponseObject> findFresherAverageMarkByFresherId (@PathVariable Long id){
+        return  ResponseEntity.status(HttpStatus.OK).body(assignmentScoreService.findAverageScoreByFresherId(id));
     }
 
     @GetMapping("/scoreGreater/{score}")
-    public ResponseEntity<ResponseObject> findAssignmentScoreByFrehsermark(@PathVariable int score){
+    public ResponseEntity<ResponseObject> findAssignmentScoreByFresherMark(@PathVariable int score){
         return ResponseEntity.status(HttpStatus.OK).body(assignmentScoreService.findAllFresherByScore(score));
     }
 

@@ -12,4 +12,5 @@ public interface FresherRepository extends JpaRepository<Fresher, Long> {
     List<Fresher> findFresherByEmailContaining(String fresherEmail);
     List<Fresher> findFresherById(Long id);
 
+
 }

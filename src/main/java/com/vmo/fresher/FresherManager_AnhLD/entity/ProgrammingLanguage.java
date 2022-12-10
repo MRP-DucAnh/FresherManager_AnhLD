@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Setter
 @Getter
-@Table(name = "PROGRAMING_LANGUAGE")
+@Table(name = "PROGRAMMING_LANGUAGE")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

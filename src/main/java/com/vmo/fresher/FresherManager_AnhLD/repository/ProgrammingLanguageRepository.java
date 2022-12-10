@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ProgrammingLanguageReposityory extends JpaRepository<ProgrammingLanguage,Long> {
+public interface ProgrammingLanguageRepository extends JpaRepository<ProgrammingLanguage,Long> {
     List<ProgrammingLanguage> findAllByName (String name);
     ProgrammingLanguage findByName(String name);
 }

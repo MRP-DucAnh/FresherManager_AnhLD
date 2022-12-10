@@ -10,6 +10,7 @@ import com.vmo.fresher.FresherManager_AnhLD.service.CenterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import model.request.CenterCreateRequest;
+import model.response.CenterResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,34 +45,41 @@ public class CenterServiceImpl implements CenterService {
 
     @Override
     public ResponseObject findByID(Long id) {
-        Optional<Center> foundCenter = centerRepository.findById(id);
-        if(foundCenter.isPresent())
-        {return  new ResponseObject("found","Center does exist !",foundCenter);}
-        else
-            throw
-                    new EntityNotFoundException(ApiErrorDetail.builder()
-                            .message("Your search '"+ id +"' did not match any center.")
-                            .entityName("Fresher")
-                            .fieldName("id")
-                            .fieldValue(id)
-                            .httpStatus(HttpStatus.NOT_FOUND)
-                            .build());
+
+        Center foundCenter = centerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ApiErrorDetail.builder()
+                        .message("Your search '"+ id +"' did not match any center.")
+                        .entityName("Center")
+                        .fieldName("id")
+                        .fieldValue(id)
+                        .httpStatus(HttpStatus.NOT_FOUND)
+                        .build()));
+        CenterResponse returnCenter = CenterResponse.builder()
+                .id(foundCenter.getId())
+                .name(foundCenter.getName())
+                .dob(foundCenter.getDob())
+                .address(foundCenter.getAddress())
+                .code(foundCenter.getCode())
+                .build();
+
+
+        return  new ResponseObject(HttpStatus.OK.toString(),"Center does exist !",returnCenter);
             //return  new ResponseObject("not found","Center doesn't exist !","");
     }
 
     @Override
     public ResponseObject updateCenter(Center newCenter, Long id) {
+        //Center  a = centerRepository.findById(id);
         Center updatedCenter = centerRepository.findById(id)
                 .map(center -> {
-                  //  center.setId(newCenter.getId());
+                    center.setAddress(newCenter.getAddress());
+                    center.setDob(newCenter.getDob());
                     center.setName(newCenter.getName());
                     center.setCode(newCenter.getCode());
-                    center.setDob(newCenter.getDob());
-                    center.setAddress(newCenter.getAddress());
-                    center.setCenterFresherList(newCenter.getCenterFresherList());
+               //     center.setCenterFresherList(newCenter.getCenterFresherList());
                     return centerRepository.save(center);
                 }).orElseThrow(() -> new EntityNotFoundException(ApiErrorDetail.builder()
-                        .message("Center id '"+id+ "'does not exist! Update Failed !")
+                        .message("Center not found")
                         .entityName("Center")
                         .fieldName("Id")
                         .fieldValue(id)
@@ -81,8 +89,14 @@ public class CenterServiceImpl implements CenterService {
 //                    newCenter.setId(id);
 //                    return  centerRepository.save(newCenter);
     //            });
-
-        return new ResponseObject("Updated", "Update Center succesfully",updatedCenter);
+        CenterResponse returnCenter = CenterResponse.builder()
+                .id(id)
+                .name(updatedCenter.getName())
+                .dob(updatedCenter.getDob())
+                .address(updatedCenter.getAddress())
+                .code(updatedCenter.getCode())
+                .build();
+        return new ResponseObject(HttpStatus.OK.toString(), "Update Fresher successfully",returnCenter);
     }
 
     @Override

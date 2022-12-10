@@ -4,6 +4,7 @@ package com.vmo.fresher.FresherManager_AnhLD.service;
 import com.vmo.fresher.FresherManager_AnhLD.entity.Fresher;
 import com.vmo.fresher.FresherManager_AnhLD.entity.ResponseObject;
 import model.request.FresherCreateRequest;
+import model.response.FresherResponse;
 
 import java.util.List;
 
@@ -22,6 +23,10 @@ public interface FresherService {
     ResponseObject findByEmail(String email);
 
     int countAllFresher();
+
+    FresherResponse findById(Long fresherId);
+
+   // FresherResponse updateFresher(Fresher newFresher, Long fresherId);
 
 
 }
