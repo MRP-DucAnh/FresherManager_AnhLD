@@ -85,13 +85,13 @@ public class AssignmentScoreServiceImpl implements AssignmentScoreService {
 
     @Override
     public ResponseObject findAllFresherByScore(int score) {
-        if(score>10 || score<=0 ) throw new OutOfRangeExceptions(ApiErrorDetail.builder()
-                .message("Invalid input score! - must be in range {0,10}")
-                .entityName("assignment score")
-                .fieldName("Score")
-                .fieldValue(score)
-                .httpStatus(HttpStatus.NOT_FOUND)
-                .build());
+//        if(score>10 || score<=0 ) throw new OutOfRangeExceptions(ApiErrorDetail.builder()
+//                .message("Invalid input score! - must be in range {0,10}")
+//                .entityName("assignment score")
+//                .fieldName("Score")
+//                .fieldValue(score)
+//                .httpStatus(HttpStatus.NOT_FOUND)
+//                .build());
         List<AssignmentScoreResponse> list2 =  fresherRepository.findAll().stream()
                 .filter(fresher -> !fresher.getAssignmentScores().isEmpty())
                 .map(fresher -> AssignmentScoreResponse.builder()

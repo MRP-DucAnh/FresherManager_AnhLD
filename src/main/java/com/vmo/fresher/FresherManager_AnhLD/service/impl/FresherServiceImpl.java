@@ -1,9 +1,6 @@
 package com.vmo.fresher.FresherManager_AnhLD.service.impl;
 
-//import com.vmo.fresher.entity.Fresher;
-//import com.vmo.fresher.repository.FresherRepository;
-//import com.vmo.fresher.service.FresherService;
-import lombok.Builder;
+
 import com.vmo.fresher.FresherManager_AnhLD.entity.Fresher;
 import com.vmo.fresher.FresherManager_AnhLD.entity.ResponseObject;
 import com.vmo.fresher.FresherManager_AnhLD.exception.ApiErrorDetail;

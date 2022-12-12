@@ -67,37 +67,37 @@ public class CenterServiceImpl implements CenterService {
             //return  new ResponseObject("not found","Center doesn't exist !","");
     }
 
-    @Override
-    public ResponseObject updateCenter(Center newCenter, Long id) {
-        //Center  a = centerRepository.findById(id);
-        Center updatedCenter = centerRepository.findById(id)
-                .map(center -> {
-                    center.setAddress(newCenter.getAddress());
-                    center.setDob(newCenter.getDob());
-                    center.setName(newCenter.getName());
-                    center.setCode(newCenter.getCode());
-               //     center.setCenterFresherList(newCenter.getCenterFresherList());
-                    return centerRepository.save(center);
-                }).orElseThrow(() -> new EntityNotFoundException(ApiErrorDetail.builder()
-                        .message("Center not found")
-                        .entityName("Center")
-                        .fieldName("Id")
-                        .fieldValue(id)
-                        .httpStatus(HttpStatus.NOT_FOUND)
-                        .build()));
-//                .orElseGet(()->{
-//                    newCenter.setId(id);
-//                    return  centerRepository.save(newCenter);
-    //            });
-        CenterResponse returnCenter = CenterResponse.builder()
-                .id(id)
-                .name(updatedCenter.getName())
-                .dob(updatedCenter.getDob())
-                .address(updatedCenter.getAddress())
-                .code(updatedCenter.getCode())
-                .build();
-        return new ResponseObject(HttpStatus.OK.toString(), "Update Fresher successfully",returnCenter);
-    }
+//    @Override
+//    public ResponseObject updateCenter(Center newCenter, Long id) {
+//        //Center  a = centerRepository.findById(id);
+//        Center updatedCenter = centerRepository.findById(id)
+//                .map(center -> {
+//                    center.setAddress(newCenter.getAddress());
+//                    center.setDob(newCenter.getDob());
+//                    center.setName(newCenter.getName());
+//                    center.setCode(newCenter.getCode());
+//               //     center.setCenterFresherList(newCenter.getCenterFresherList());
+//                    return centerRepository.save(center);
+//                }).orElseThrow(() -> new EntityNotFoundException(ApiErrorDetail.builder()
+//                        .message("Center not found")
+//                        .entityName("Center")
+//                        .fieldName("Id")
+//                        .fieldValue(id)
+//                        .httpStatus(HttpStatus.NOT_FOUND)
+//                        .build()));
+////                .orElseGet(()->{
+////                    newCenter.setId(id);
+////                    return  centerRepository.save(newCenter);
+//    //            });
+//        CenterResponse returnCenter = CenterResponse.builder()
+//                .id(id)
+//                .name(updatedCenter.getName())
+//                .dob(updatedCenter.getDob())
+//                .address(updatedCenter.getAddress())
+//                .code(updatedCenter.getCode())
+//                .build();
+//        return new ResponseObject(HttpStatus.OK.toString(), "Update Fresher successfully",returnCenter);
+//    }
 
     @Override
     public ResponseObject deleteCenter(Long id) {
@@ -115,6 +115,30 @@ public class CenterServiceImpl implements CenterService {
                 .build());
             //return new ResponseObject("failed","Cannot find Fresher with ID: "+id,"");
     }
-
+    @Override
+    public CenterResponse updateCenter(Center newCenter, Long centerId) {
+        Center updateCenter = centerRepository.findById(centerId)
+                .map(center -> {
+                    center.setAddress(newCenter.getAddress());
+                    center.setDob(newCenter.getDob());
+                    center.setName(newCenter.getName());
+                    center.setCode(newCenter.getCode());
+                    center.setCenterFresherList(newCenter.getCenterFresherList());
+                    return centerRepository.save(center);
+                }).orElseThrow(() -> new EntityNotFoundException(ApiErrorDetail.builder()
+                        .message("Center not found")
+                        .entityName("Center")
+                        .fieldName("Id")
+                        .fieldValue(centerId)
+                        .httpStatus(HttpStatus.NOT_FOUND)
+                        .build()));
+        CenterResponse c = CenterResponse.builder()
+                .id(updateCenter.getId())
+                .name(updateCenter.getName())
+                .dob(updateCenter.getDob())
+                .address(updateCenter.getAddress())
+                .build();
+        return c;
+    }
 
 }

@@ -7,7 +7,9 @@ import com.vmo.fresher.FresherManager_AnhLD.service.CenterFresherService;
 import com.vmo.fresher.FresherManager_AnhLD.service.CenterService;
 import lombok.RequiredArgsConstructor;
 import model.request.CenterCreateRequest;
+import model.request.CenterFresherCreateRequest;
 import model.response.CenterFresherResponse;
+import model.response.CenterResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,11 +46,11 @@ public class CenterController {
 
     }
 
-    //Update Center
-    @PutMapping("/{id}")
-    public  ResponseEntity<ResponseObject> updateCenter(@RequestBody Center newCenter, @PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(centerService.updateCenter(newCenter, id));
-    }
+//    //Update Center
+//    @PutMapping("/{id}")
+//    public  ResponseEntity<ResponseObject> updateCenter(@RequestBody Center newCenter, @PathVariable Long id) {
+//        return ResponseEntity.status(HttpStatus.OK).body(centerService.updateCenter(newCenter, id));
+//    }
     //Delete Center by Id
     @DeleteMapping("/{id}")
     public  ResponseEntity<ResponseObject> deleteCenter(@PathVariable Long id){
@@ -58,5 +60,17 @@ public class CenterController {
     @GetMapping("/{centerId}/freshers")
     public ResponseEntity<List<CenterFresherResponse>> getAllFresherByCenter(@PathVariable Long centerId) {
         return ResponseEntity.ok(centerFresherService.findAllFreshersByCenterId(centerId));
+    }
+
+
+    @PutMapping("{centerId}")
+    public ResponseEntity<CenterResponse> updateCenter(@RequestBody Center newCenter, @PathVariable Long centerId){
+        return ResponseEntity.status(HttpStatus.OK).body(centerService.updateCenter(newCenter, centerId));
+    }
+
+    @PostMapping("/addFresherToCenter")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<ResponseObject> addFresherToCenter(@RequestBody @Valid CenterFresherCreateRequest centerFresherCreateRequest) {
+        return ResponseEntity.ok(centerFresherService.addFresherToCenter(centerFresherCreateRequest));
     }
 }
